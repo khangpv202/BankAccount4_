@@ -38,8 +38,13 @@ public class BankAccount {
         return transaction;
     }
 
-    public static void withdraw(String accountNumber, int amount, String description)
+    public static TransactionDTO withdraw(String accountNumber, int amount, String description)
     {
-
+        BankAccountDTO bankAccountDTO = bankAccountDAO.getAccountNumber(accountNumber);
+        bankAccountDTO.setBalance (bankAccountDTO.getBalance()+amount);
+        bankAccountDAO.save(bankAccountDTO);
+        TransactionDTO transactionDTO = new TransactionDTO(accountNumber,amount,description);
+        Transaction.save(transactionDTO);
+        return  transactionDTO;
     }
 }

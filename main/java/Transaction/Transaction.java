@@ -1,6 +1,7 @@
 package Transaction;
 
 import TransactionDAO.TransactionDAO;
+import TransactionDTO.TransactionDTO;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,5 +16,10 @@ public class Transaction
     public static void setMockTransaction(TransactionDAO transactinDao)
     {
         transactionDAO = transactinDao;
+    }
+
+    public static void save(TransactionDTO transactionDTO)
+    {
+        transactionDAO.save(transactionDTO);
     }
 }

@@ -3,6 +3,7 @@ package BankAccount;
 import BankAccountDAO.BankAccountDAO;
 import BankAccountDTO.BankAccountDTO;
 import TransactionDTO.TransactionDTO;
+import Transaction.Transaction;
 
 /**
  * Created with IntelliJ IDEA.
@@ -33,6 +34,7 @@ public class BankAccount {
         bankAccountDTO.setBalance (bankAccountDTO.getBalance()+amount);
         bankAccountDAO.save(bankAccountDTO);
         TransactionDTO transaction = new TransactionDTO(accountNumber,amount,descreption);
+        Transaction.save(transaction);
         return transaction;
     }
 }

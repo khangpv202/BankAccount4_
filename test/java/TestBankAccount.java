@@ -64,5 +64,15 @@ public class TestBankAccount {
         verify(mockTransactinDAO).save(savedTransaction.capture());
         assertEquals(transactionDTO.getTimestamp(),savedTransaction.getValue().getTimestamp());
     }
+    @Test
+    public void testWithdraw(){
+        BankAccountDTO initialAccount = BankAccount.open(accountNumber);
+        when(mockBankAccountDAO.getAccountNumber(accountNumber)).thenReturn(initialAccount);
+        BankAccount.deposit(accountNumber,10,"deposit");
+        BankAccount.withdraw(accountNumber,-10,"deposit");
+        ArgumentCaptor<BankAccountDTO> capturedAccount = ArgumentCaptor.forClass(BankAccountDTO.class);
+        verify(mockBankAccountDAO,times(3)).save(capturedAccount.capture());
+        assertEquals(capturedAccount.getValue().getBalance(),initialAccount.getBalance(),0.001);
+    }
 
 }

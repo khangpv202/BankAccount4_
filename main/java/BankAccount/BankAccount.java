@@ -37,4 +37,9 @@ public class BankAccount {
         Transaction.save(transaction);
         return transaction;
     }
+
+    public static void withdraw(String accountNumber, int amount, String description)
+    {
+
+    }
 }

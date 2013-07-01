@@ -43,10 +43,11 @@ public class TestBankAccount {
     @Test
     public void testDeposit(){
         BankAccountDTO initialAccount = BankAccount.open(accountNumber);
-        when(mockBankAccountDAO.getAccountNumber()).thenReturn(initialAccount);
+        when(mockBankAccountDAO.getAccountNumber(accountNumber)).thenReturn(initialAccount);
         BankAccount.deposit(accountNumber,10,"deposit");
         ArgumentCaptor<BankAccountDTO> capturedAccount = ArgumentCaptor.forClass(BankAccountDTO.class);
         verify(mockBankAccountDAO,times(2)).save(capturedAccount.capture());
         assertEquals(capturedAccount.getValue().getBalance(),initialAccount.getBalance(),0.001);
     }
+
 }

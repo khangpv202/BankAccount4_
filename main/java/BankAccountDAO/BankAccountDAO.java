@@ -10,12 +10,8 @@ import BankAccountDTO.BankAccountDTO;
  * To change this template use File | Settings | File Templates.
  */
 public class BankAccountDAO {
-    public void save(BankAccountDTO capture) {
+    public void save(BankAccountDTO accountNumber) {
 
-    }
-
-    public BankAccountDTO getAccountNumber() {
-        return null;  //To change body of created methods use File | Settings | File Templates.
     }
 
     public BankAccountDTO getAccountNumber(String accountNumber) {

@@ -23,4 +23,9 @@ public class BankAccountDTO {
     public String getAccountNumber() {
         return accountNumber;  //To change body of created methods use File | Settings | File Templates.
     }
+
+    public void setBalance(double amount)
+    {
+        this.balance = amount;
+    }
 }

@@ -2,6 +2,7 @@ package BankAccount;
 
 import BankAccountDAO.BankAccountDAO;
 import BankAccountDTO.BankAccountDTO;
+import TransactionDTO.TransactionDTO;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,10 +28,11 @@ public class BankAccount {
         return bankAccountDAO.getAccountNumber(accountNumber);  //To change body of created methods use File | Settings | File Templates.
     }
 
-    public static void deposit(String accountNumber, int amount, String deposit) {
+    public static TransactionDTO deposit(String accountNumber, int amount, String descreption) {
         BankAccountDTO bankAccountDTO = bankAccountDAO.getAccountNumber(accountNumber);
         bankAccountDTO.setBalance (bankAccountDTO.getBalance()+amount);
         bankAccountDAO.save(bankAccountDTO);
-
+        TransactionDTO transaction = new TransactionDTO(accountNumber,amount,descreption);
+        return transaction;
     }
 }

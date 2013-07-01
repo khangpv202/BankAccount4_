@@ -1,6 +1,9 @@
 import BankAccount.BankAccount;
 import BankAccountDAO.BankAccountDAO;
 import BankAccountDTO.BankAccountDTO;
+import Transaction.Transaction;
+import TransactionDAO.TransactionDAO;
+import TransactionDTO.TransactionDTO;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -17,12 +20,15 @@ import static org.mockito.Mockito.*;
  */
 public class TestBankAccount {
     BankAccountDAO mockBankAccountDAO = mock(BankAccountDAO.class);
+    TransactionDAO mockTransactinDAO = mock(TransactionDAO.class);
     private  String accountNumber = "123456789";
 
     @Before
     public void initialForTest(){
         reset(mockBankAccountDAO);
         BankAccount.setMockBankAccount(mockBankAccountDAO);
+        reset(mockTransactinDAO);
+        Transaction.setMockTransaction(mockTransactinDAO);
     }
 
     @Test
@@ -48,6 +54,15 @@ public class TestBankAccount {
         ArgumentCaptor<BankAccountDTO> capturedAccount = ArgumentCaptor.forClass(BankAccountDTO.class);
         verify(mockBankAccountDAO,times(2)).save(capturedAccount.capture());
         assertEquals(capturedAccount.getValue().getBalance(),initialAccount.getBalance(),0.001);
+    }
+    @Test
+    public void testDepositForSaveInToDB(){
+        BankAccountDTO initialAccount = BankAccount.open(accountNumber);
+        when(mockBankAccountDAO.getAccountNumber(accountNumber)).thenReturn(initialAccount);
+        TransactionDTO transactionDTO = BankAccount.deposit(accountNumber,10,"first deposit");
+        ArgumentCaptor<TransactionDTO> savedTransaction = ArgumentCaptor.forClass(TransactionDTO.class);
+        verify(mockTransactinDAO).save(savedTransaction.capture());
+        assertEquals(transactionDTO.getTimestamp(),savedTransaction.getValue().getTimestamp());
     }
 
 }

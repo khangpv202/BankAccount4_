@@ -29,4 +29,9 @@ public class Transaction
     {
         return transactionDAO.getTransactionsOccurred(accountNumber);
     }
+
+    public static List<TransactionDTO> getTransactionsOccurred(String accountNumber, long startTime, long stopTime)
+    {
+        return transactionDAO.getTransactionsOccurred(accountNumber,startTime,stopTime);
+    }
 }

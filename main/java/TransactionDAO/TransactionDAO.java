@@ -27,4 +27,9 @@ public class TransactionDAO
     {
         return null;
     }
+
+    public List<TransactionDTO> getTransactionsOccurred(String accountNumber, int numberNewestOfTransaction)
+    {
+        return null;
+    }
 }

@@ -120,5 +120,18 @@ public class TestBankAccount {
         BankAccount.getTransactionsOccurred(accountNumber, startTime, stopTime);
         verify(mockTransactinDAO).getTransactionsOccurred(accountNumber,startTime,stopTime);
     }
+    @Test
+    public void testGetNewestTransaction(){
+        BankAccountDTO initialAccount = BankAccount.open(accountNumber);
+        List<TransactionDTO>listTransaction= new ArrayList<TransactionDTO>();
+
+        when(mockBankAccountDAO.getAccountNumber(accountNumber)).thenReturn(initialAccount);
+
+        BankAccount.deposit(accountNumber,10,"first deposit");
+        BankAccount.deposit(accountNumber,10,"second deposit");
+
+        BankAccount.getTransactionsOccurred(accountNumber,2);
+        verify(mockTransactinDAO).getTransactionsOccurred(accountNumber,2);
+    }
 
 }

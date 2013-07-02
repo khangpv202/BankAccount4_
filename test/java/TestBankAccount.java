@@ -15,16 +15,14 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
 /**
- * Created with IntelliJ IDEA.
  * User: khangpv
  * Date: 6/28/13
  * Time: 1:34 PM
- * To change this template use File | Settings | File Templates.
  */
 public class TestBankAccount {
-    BankAccountDAO mockBankAccountDAO = mock(BankAccountDAO.class);
-    TransactionDAO mockTransactinDAO = mock(TransactionDAO.class);
-    private  String accountNumber = "123456789";
+    private BankAccountDAO mockBankAccountDAO = mock(BankAccountDAO.class);
+    private TransactionDAO mockTransactinDAO = mock(TransactionDAO.class);
+    private final String accountNumber = "123456789";
 
     @Before
     public void initialForTest(){
@@ -36,16 +34,16 @@ public class TestBankAccount {
 
     @Test
     public void testOpenAccount(){
-        BankAccount.open(accountNumber);
+        BankAccountDTO initialAccount = BankAccount.open(accountNumber);
         ArgumentCaptor<BankAccountDTO> saveAccount = ArgumentCaptor.forClass(BankAccountDTO.class);
         verify(mockBankAccountDAO).save(saveAccount.capture());
         assertEquals(saveAccount.getValue().getBalance(),0,0.001);
         assertEquals(saveAccount.getValue().getAccountNumber(),accountNumber);
+        assertEquals(saveAccount.getValue().getTimeStamp(),initialAccount.getTimeStamp());
     }
     @Test
     public void testGetAccountNumber(){
-        BankAccountDTO initialAccount = BankAccount.open(accountNumber);
-        //when(mockBankAccountDAO.getAccountNumber()).thenReturn(initialAccount);
+        BankAccount.open(accountNumber);
         BankAccount.getAccountNumber(accountNumber);
         verify(mockBankAccountDAO).getAccountNumber(accountNumber);
     }
@@ -91,7 +89,7 @@ public class TestBankAccount {
     @Test
     public void testGetTransactionsOccurred(){
         BankAccountDTO initialAccount = BankAccount.open(accountNumber);
-        List<TransactionDTO>listTransaction= new ArrayList<TransactionDTO>();
+        List<TransactionDTO>listTransaction ;
 
         when(mockBankAccountDAO.getAccountNumber(accountNumber)).thenReturn(initialAccount);
 
@@ -109,8 +107,6 @@ public class TestBankAccount {
     @Test
     public void testGetTransactionHasStartandStopTime(){
         BankAccountDTO initialAccount = BankAccount.open(accountNumber);
-        List<TransactionDTO>listTransaction= new ArrayList<TransactionDTO>();
-
         when(mockBankAccountDAO.getAccountNumber(accountNumber)).thenReturn(initialAccount);
 
         BankAccount.deposit(accountNumber,10,"first deposit");
@@ -123,8 +119,6 @@ public class TestBankAccount {
     @Test
     public void testGetNewestTransaction(){
         BankAccountDTO initialAccount = BankAccount.open(accountNumber);
-        List<TransactionDTO>listTransaction= new ArrayList<TransactionDTO>();
-
         when(mockBankAccountDAO.getAccountNumber(accountNumber)).thenReturn(initialAccount);
 
         BankAccount.deposit(accountNumber,10,"first deposit");

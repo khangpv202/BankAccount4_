@@ -10,10 +10,11 @@ package BankAccountDTO;
 public class BankAccountDTO {
     private double balance;
     private String accountNumber;
-
+    private long timeStamp;
     public BankAccountDTO(String numberOfNumber) {
         this.accountNumber=numberOfNumber;
         this.balance = 0;
+        timeStamp= System.currentTimeMillis();
     }
 
     public double getBalance() {
@@ -27,5 +28,15 @@ public class BankAccountDTO {
     public void setBalance(double amount)
     {
         this.balance = amount;
+    }
+
+    public long getTimeStamp()
+    {
+        return timeStamp;
+    }
+
+    public void setTimeStamp(long timeStamp)
+    {
+        this.timeStamp = timeStamp;
     }
 }

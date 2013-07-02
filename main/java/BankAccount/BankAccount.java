@@ -62,6 +62,6 @@ public class BankAccount {
 
     public static List<TransactionDTO> getTransactionsOccurred(String accountNumber, int numberNewestOfTransaction)
     {
-        return null;
+        return Transaction.getTransactionsOccurred(accountNumber,numberNewestOfTransaction);
     }
 }

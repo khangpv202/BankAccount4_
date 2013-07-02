@@ -34,4 +34,9 @@ public class Transaction
     {
         return transactionDAO.getTransactionsOccurred(accountNumber,startTime,stopTime);
     }
+
+    public static List<TransactionDTO> getTransactionsOccurred(String accountNumber, int numberNewestOfTransaction)
+    {
+        return transactionDAO.getTransactionsOccurred(accountNumber,numberNewestOfTransaction);
+    }
 }

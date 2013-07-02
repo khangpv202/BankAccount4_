@@ -22,4 +22,9 @@ public class TransactionDAO
     {
         return null;  //To change body of created methods use File | Settings | File Templates.
     }
+
+    public List<TransactionDTO> getTransactionsOccurred(String accountNumber, long startTime, long stopTime)
+    {
+        return null;
+    }
 }

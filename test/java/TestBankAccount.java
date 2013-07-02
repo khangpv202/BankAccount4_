@@ -106,5 +106,19 @@ public class TestBankAccount {
 
         assertEquals(listTransaction,transactionList);
     }
+    @Test
+    public void testGetTransactionHasStartandStopTime(){
+        BankAccountDTO initialAccount = BankAccount.open(accountNumber);
+        List<TransactionDTO>listTransaction= new ArrayList<TransactionDTO>();
+
+        when(mockBankAccountDAO.getAccountNumber(accountNumber)).thenReturn(initialAccount);
+
+        BankAccount.deposit(accountNumber,10,"first deposit");
+        BankAccount.deposit(accountNumber,10,"second deposit");
+        long startTime = 0l, stopTime = 1000L;
+
+        BankAccount.getTransactionsOccurred(accountNumber, startTime, stopTime);
+        verify(mockTransactinDAO).getTransactionsOccurred(accountNumber,startTime,stopTime);
+    }
 
 }

@@ -52,6 +52,6 @@ public class BankAccount {
 
     public static List<TransactionDTO> getTransactionsOccurred(String accountNumber)
     {
-        return null;
+        return Transaction.getTransactionsOccurred(accountNumber);
     }
 }

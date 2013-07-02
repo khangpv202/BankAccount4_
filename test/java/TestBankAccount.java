@@ -99,8 +99,11 @@ public class TestBankAccount {
         BankAccount.deposit(accountNumber,10,"second deposit");
 
         ArgumentCaptor<TransactionDTO> listCapturedTransaction = ArgumentCaptor.forClass(TransactionDTO.class);
-        List<TransactionDTO> transactionList = BankAccount.getTransactionsOccurred(accountNumber);
         listTransaction = listCapturedTransaction.getAllValues();
+        when(mockTransactinDAO.getTransactionsOccurred(accountNumber)).thenReturn(listTransaction);
+
+        List<TransactionDTO> transactionList = BankAccount.getTransactionsOccurred(accountNumber);
+
         assertEquals(listTransaction,transactionList);
     }
 

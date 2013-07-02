@@ -3,6 +3,8 @@ package Transaction;
 import TransactionDAO.TransactionDAO;
 import TransactionDTO.TransactionDTO;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: kpv
@@ -21,5 +23,10 @@ public class Transaction
     public static void save(TransactionDTO transactionDTO)
     {
         transactionDAO.save(transactionDTO);
+    }
+
+    public static List<TransactionDTO> getTransactionsOccurred(String accountNumber)
+    {
+        return transactionDAO.getTransactionsOccurred(accountNumber);
     }
 }

@@ -5,6 +5,8 @@ import BankAccountDTO.BankAccountDTO;
 import TransactionDTO.TransactionDTO;
 import Transaction.Transaction;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: khangpv
@@ -46,5 +48,10 @@ public class BankAccount {
         TransactionDTO transactionDTO = new TransactionDTO(accountNumber,amount,description);
         Transaction.save(transactionDTO);
         return  transactionDTO;
+    }
+
+    public static List<TransactionDTO> getTransactionsOccurred(String accountNumber)
+    {
+        return null;
     }
 }

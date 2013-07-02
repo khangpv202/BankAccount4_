@@ -8,6 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -84,6 +87,21 @@ public class TestBankAccount {
         ArgumentCaptor<TransactionDTO> savedTransaction = ArgumentCaptor.forClass(TransactionDTO.class);
         verify(mockTransactinDAO,times(2)).save(savedTransaction.capture());
         assertEquals(transactionDTO.getTimestamp(),savedTransaction.getValue().getTimestamp());
+    }
+    @Test
+    public void testGetTransactionsOccurred(){
+        BankAccountDTO initialAccount = BankAccount.open(accountNumber);
+        List<TransactionDTO>listTransaction= new ArrayList<TransactionDTO>();
+
+        when(mockBankAccountDAO.getAccountNumber(accountNumber)).thenReturn(initialAccount);
+
+        BankAccount.deposit(accountNumber,10,"first deposit");
+        BankAccount.deposit(accountNumber,10,"second deposit");
+
+        ArgumentCaptor<TransactionDTO> listCapturedTransaction = ArgumentCaptor.forClass(TransactionDTO.class);
+        List<TransactionDTO> transactionList = BankAccount.getTransactionsOccurred(accountNumber);
+        listTransaction = listCapturedTransaction.getAllValues();
+        assertEquals(listTransaction,transactionList);
     }
 
 }
